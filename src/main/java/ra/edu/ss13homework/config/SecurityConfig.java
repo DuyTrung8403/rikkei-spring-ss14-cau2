@@ -19,13 +19,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Tắt CSRF vì đây là REST API (stateless)
                 .csrf(AbstractHttpConfigurer::disable)
-                // Cấu hình phân quyền endpoint
                 .authorizeHttpRequests(auth -> auth
-                        // Cho phép tất cả mọi người truy cập /api/v1/auth/**
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        // Các request còn lại bắt buộc phải xác thực
                         .anyRequest().authenticated()
                 );
 
